@@ -48,7 +48,7 @@ def extract_skills(text):
     text_lower = text.lower()
     found = []
     for skill in SKILLS_DB:
-        if skill.lower() in text_lower:
+        if len(skill) > 1 and skill.lower() in text_lower:
             found.append(skill)
     return list(set(found))
 
