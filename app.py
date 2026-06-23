@@ -5,9 +5,32 @@ import spacy
 from flask import Flask, render_template, request, jsonify
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
+import logging
+import time
+
+# Configure logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s %(levelname)s %(message)s',
+    handlers=[logging.StreamHandler()]
+)
+logger = logging.getLogger(__name__)
 
 app = Flask(__name__)
 nlp = spacy.load("en_core_web_sm")
+
+@app.before_request
+def log_request():
+    from flask import request
+    request._start_time = time.time()
+    logger.info(f"→ {request.method} {request.path} | IP: {request.remote_addr}")
+
+@app.after_request
+def log_response(response):
+    from flask import request
+    duration = round((time.time() - getattr(request, '_start_time', time.time())) * 1000, 2)
+    logger.info(f"← {response.status_code} {request.path} | {duration}ms")
+    return response
 
 # ── Skill keywords database ───────────────────────────────────────────────────
 SKILLS_DB = [

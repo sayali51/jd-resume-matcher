@@ -3,4 +3,3 @@ PyPDF2
 scikit-learn 
 spacy
 pytest
-pytest-flask
