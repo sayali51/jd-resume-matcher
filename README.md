@@ -1,4 +1,4 @@
-# 🎯 JD Resume Matcher
+![CI](https://github.com/sayali51/jd-resume-matcher/actions/workflows/ci.yml/badge.svg)
 
 **Live Demo → [https://jd-resume-matcher-261h.onrender.com](https://jd-resume-matcher-261h.onrender.com)**
 
